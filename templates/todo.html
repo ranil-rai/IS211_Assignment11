@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>To Do List</title>
+</head>
+<body>
+    <h1>To Do List</h1>
+    <form action="/submit" method="post">
+        <label for="task">Task:</label>
+        <input type="text" id="task" name="task"><br><br>
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email"><br><br>
+        <label for="priority">Priority:</label>
+        <select id="priority" name="priority">
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+        </select><br><br>
+        <input type="submit" value="Add To Do Item">
+    </form>
+    <table>
+        <tr>
+            <th>Task</th>
+            <th>Email</th>
+            <th>Priority</th>
+            <th>Action</th> <!-- Added column for delete action -->
+        </tr>
+        {% for item in items %}
+        <tr>
+            <td>{{ item['task'] }}</td>
+            <td>{{ item['email'] }}</td>
+            <td>{{ item['priority'] }}</td>
+            <td>
+                <!-- Delete button for each item -->
+                <form action="/delete/{{ item['id'] }}" method="post">
+                    <input type="submit" value="Delete">
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    
+    <form action="/clear" method="post">
+        <input type="submit" value="Clear">
+    </form>
+    <form action="/save" method="post">
+        <input type="submit" value="Save">
+    </form>
+</body>
+</html>
